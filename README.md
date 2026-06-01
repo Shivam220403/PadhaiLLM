@@ -1,4 +1,4 @@
-# 📚 PadhaiLLM — Course Exam Prep Assistant
+# PadhaiLLM — Course Exam Prep Assistant
 
 **PadhaiLLM** is an offline, privacy-first, locally hosted Retrieval-Augmented Generation (RAG) assistant designed specifically for students. It allows users to upload course materials (like syllabi, textbook chapters, or lecture notes) in PDF format and intelligently answers questions or generates complete summaries using a powerful local LLM.
 
@@ -6,20 +6,20 @@
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 - **100% Offline & Private:** Your documents and chat data never leave your machine. Everything runs locally.
 - **Robust Multi-Strategy PDF Extraction:** Intelligently switches between `PyMuPDF`, `pdfplumber`, and `pypdf` to handle diverse academic PDFs, including table-heavy documents and complex layouts.
 - **Dynamic 3-Tier Query Routing:**
-  - 📖 **Summary Mode:** Automatically detects summarization requests and uses a high-context window to read and summarize the entire document.
-  - 🔍 **Broad Search:** Uses Maximum Marginal Relevance (MMR) retrieval for diverse topic coverage (e.g., "Explain all routing protocols").
-  - 🎯 **Focused Search:** Uses precise similarity search for targeted, specific questions (e.g., "What is Go-Back-N?").
+  - **Summary Mode:** Automatically detects summarization requests and uses a high-context window to read and summarize the entire document.
+  - **Broad Search:** Uses Maximum Marginal Relevance (MMR) retrieval for diverse topic coverage (e.g., "Explain all routing protocols").
+  - **Focused Search:** Uses precise similarity search for targeted, specific questions (e.g., "What is Go-Back-N?").
 - **Transparent Source Evidence:** View exactly which sections and pages of your PDF the assistant used to generate its answer.
 - **Premium UI:** Built with Streamlit, featuring a modern dark theme, animated chat messages, and live pipeline metrics.
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend / UI:** [Streamlit](https://streamlit.io/)
 - **LLM Engine:** [Ollama](https://ollama.com/) (Running **Llama 3.2 3B**)
@@ -30,7 +30,7 @@
 
 ---
 
-## 🚀 Setup & Installation
+## Setup & Installation
 
 ### Prerequisites
 
@@ -64,7 +64,7 @@ The application will open in your default web browser at `http://localhost:8501`
 
 ---
 
-## 💡 How to Use
+## How to Use
 
 1. **Upload a PDF:** Drag and drop your course material (PDF) into the sidebar.
 2. **Wait for Pipeline Initialization:** The app will extract the text, chunk it, generate embeddings, and store them in the local vector database. You can monitor the metrics in the sidebar.
@@ -75,7 +75,7 @@ The application will open in your default web browser at `http://localhost:8501`
 
 ---
 
-## 🏗️ Architecture Highlights
+## Architecture Highlights
 
 - **Extraction Logic:** The system evaluates extraction quality dynamically. It tries `PyMuPDF` first for speed, falls back to `pdfplumber` if coverage is poor or tables are dominant, and uses `pypdf` as a last resort.
 - **Chunking Strategy:** Uses LangChain's `RecursiveCharacterTextSplitter` with overlapping chunks to preserve contextual integrity.
