@@ -71,7 +71,7 @@ The application will open in your default web browser at `http://localhost:8501`
 3. **Ask Questions:** 
    - Ask specific questions: *"What is the difference between TCP and UDP?"*
    - Ask for summaries: *"Summarize the entire document"*
-4. **Review Evidence:** Click on the **📑 View Source Evidence** dropdown under the assistant's replies to see the exact text fragments and page numbers referenced.
+4. **Review Evidence:** Click on the **View Source Evidence** dropdown under the assistant's replies to see the exact text fragments and page numbers referenced.
 
 ---
 
@@ -84,4 +84,3 @@ The application will open in your default web browser at `http://localhost:8501`
   - Summarization routing uses an extended 16K context window to process full documents efficiently.
 
 ---
-*Built for smarter, faster, and private exam preparation.*
