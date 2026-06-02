@@ -667,7 +667,7 @@ def generate_full_summary(summary_llm, raw_docs: list, user_query: str) -> tuple
 #  5. SIDEBAR — FILE UPLOAD & CONTROLS
 # ═══════════════════════════════════════════════════════════
 with st.sidebar:
-    st.markdown("### 📄 Upload Study Material")
+    st.markdown("### Upload Study Material")
     uploaded_file = st.file_uploader(
         "Drop your course PDF here",
         type=["pdf"],
@@ -676,14 +676,14 @@ with st.sidebar:
 
     st.markdown("---")
 
-    if st.button("🗑️ Clear Chat History", use_container_width=True):
+    if st.button("Clear Chat History", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
 
     # Pipeline stats display
     if st.session_state.pipeline_stats:
         stats = st.session_state.pipeline_stats
-        st.markdown("### 📊 Pipeline Metrics")
+        st.markdown("### Pipeline Metrics")
         st.markdown(f"""
         <div class="metric-row">
             <div class="metric-card">
@@ -740,8 +740,8 @@ if uploaded_file:
             f.write(file_bytes)
 
         # Build pipeline with progress
-        with st.status("🔧 Initializing RAG Pipeline...", expanded=True) as status:
-            st.write("📄 Extracting text from PDF (multi-strategy)...")
+        with st.status("Initializing RAG Pipeline...", expanded=True) as status:
+            st.write("Extracting text from PDF (multi-strategy)...")
             time.sleep(0.3)
 
             try:
@@ -753,13 +753,13 @@ if uploaded_file:
                 st.session_state.summary_llm = summary_llm
                 st.session_state.pipeline_stats = stats
 
-                st.write(f"✅ Extracted **{stats['pages']} pages** ({stats['characters']:,} chars) via `{stats['extractor']}`")
-                st.write(f"🧩 Created **{stats['chunks']} semantic chunks**")
-                st.write("🧠 Embeddings computed & stored in ChromaDB")
-                st.write("🤖 Llama 3.2 (3B) connected via Ollama")
-                status.update(label="✅ Pipeline Ready!", state="complete", expanded=False)
+                st.write(f"Extracted **{stats['pages']} pages** ({stats['characters']:,} chars) via `{stats['extractor']}`")
+                st.write(f"Created **{stats['chunks']} semantic chunks**")
+                st.write("Embeddings computed & stored in ChromaDB")
+                st.write("Llama 3.2 (3B) connected via Ollama")
+                status.update(label="Pipeline Ready!", state="complete", expanded=False)
             except Exception as e:
-                status.update(label="❌ Pipeline Failed", state="error")
+                status.update(label="Pipeline Failed", state="error")
                 st.error(f"Pipeline initialization error: {e}")
                 st.stop()
 
@@ -774,7 +774,7 @@ if uploaded_file:
                 st.markdown(message["content"])
                 if message["role"] == "assistant":
                     if "sources" in message and message["sources"]:
-                        with st.expander("📑 View Source Evidence", expanded=False):
+                        with st.expander("View Source Evidence", expanded=False):
                             for idx, src in enumerate(message["sources"]):
                                 st.markdown(f"**Fragment {idx + 1}** — *Page {src['page']}*")
                                 display_text = format_fragment_for_display(src["text"])
@@ -805,11 +805,11 @@ if uploaded_file:
                 query_tier = classify_query(user_query)
 
                 if query_tier == "summary":
-                    spinner_text = "📖 Reading ENTIRE document for summarization..."
+                    spinner_text = "Reading ENTIRE document for summarization..."
                 elif query_tier == "broad":
-                    spinner_text = "🔍 Broad search — scanning across document..."
+                    spinner_text = "Broad search — scanning across document..."
                 else:
-                    spinner_text = "🎯 Focused search — finding exact answer..."
+                    spinner_text = "Focused search — finding exact answer..."
 
                 with st.spinner(spinner_text):
                     try:
@@ -817,7 +817,7 @@ if uploaded_file:
 
                         if query_tier == "summary":
                             # TIER 1: Full document summary
-                            st.toast("📖 Full-document mode", icon="📖")
+                            st.toast("Full-document mode", icon="📖")
                             answer, context_docs = generate_full_summary(
                                 st.session_state.summary_llm,
                                 st.session_state.raw_docs,
@@ -825,7 +825,7 @@ if uploaded_file:
                             )
                         elif query_tier == "broad":
                             # TIER 2: MMR retrieval — diverse chunks (k=10)
-                            st.toast("🔍 Broad mode: diverse retrieval", icon="🔍")
+                            st.toast("Broad mode: diverse retrieval", icon="🔍")
                             output = st.session_state.broad_chain.invoke({"input": user_query})
                             answer = output["answer"]
                             context_docs = output.get("context", [])
@@ -844,7 +844,7 @@ if uploaded_file:
                         # Source evidence
                         sources = []
                         if context_docs:
-                            with st.expander("📑 View Source Evidence", expanded=False):
+                            with st.expander("View Source Evidence", expanded=False):
                                 for idx, chunk in enumerate(context_docs):
                                     page_num = chunk.metadata.get("page", "?")
                                     st.markdown(f"**Fragment {idx + 1}** — *Page {page_num}*")
@@ -877,7 +877,7 @@ if uploaded_file:
                         })
 
                     except Exception as e:
-                        error_msg = f"⚠️ Error generating response: {e}"
+                        error_msg = f"Error generating response: {e}"
                         st.error(error_msg)
                         st.session_state.messages.append({"role": "assistant", "content": error_msg})
 
