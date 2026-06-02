@@ -575,7 +575,7 @@ def build_rag_pipeline(pdf_path: str):
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
-        ("human", "{input}"),
+        ("human", "Question: {input}\n\nREMINDER: Answer using ONLY the context chunks above. Do not use outside knowledge. If not in context, say exactly: ⚠️ The requested information is not present..."),
     ])
 
     # ── F. Two Chains — one per retrieval strategy ──
